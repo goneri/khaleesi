@@ -32,6 +32,7 @@
   hosts: all:!localhost:&RedHat
   sudo: yes
   roles:
+    - { role: linux/rhel/register }
     - { role: linux/rhel/rdo }
     - { role: product/rdo/rhel }
 

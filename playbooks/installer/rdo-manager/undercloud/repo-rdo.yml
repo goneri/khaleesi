@@ -47,6 +47,7 @@
   roles:
     # enable this role when rdo and rhos officially diverge
     #- { role: linux/rhel/rdo }
+    - { role: linux/rhel/register }
     - { role: product/rdo/rhel }
 
 - name: CentOS RDO prep
