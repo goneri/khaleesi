@@ -1,6 +1,12 @@
 ---
 - include: "{{ base_dir }}/khaleesi/playbooks/group_by.yml ansible_ssh_user=root"
 
+- name: Register nodes on RHSM
+  hosts: all:&RedHat
+  sudo: yes
+  roles:
+    - { role: linux/rhel/register }
+
 - name: Setup openstack repos
   hosts: "{{ repo_host }}:&RedHat"
   vars:

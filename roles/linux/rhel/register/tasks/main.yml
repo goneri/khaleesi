@@ -1,0 +1,30 @@
+---
+- name: Enable RHSM
+  shell: >
+    subscription-manager register --username {{ distro.rhel.subscription.username }} --password {{ distro.rhel.subscription.password }};
+  register: shell_result
+  # code 64: already registred
+  failed_when: shell_result.rc not in [0, 64]
+  when: distro.rhel.subscription.username is defined
+
+- name: attach --auto
+  shell: >
+    subscription-manager attach --auto;
+  when: (distro.rhel.subscription.pool == None) and (distro.rhel.subscription.physical_pool == None)
+
+- name: subscribing to pool
+  shell: >
+    subscription-manager subscribe --pool {{ distro.rhel.subscription.pool }};
+    subscription-manager repos --disable=*;
+  when: (ansible_virtualization_role == 'guest') and (ansible_distribution_version|int == 7)
+
+- name: subscribing to physical_pool
+  shell: >
+    subscription-manager subscribe --pool {{ distro.rhel.subscription.physical_pool }};
+    subscription-manager repos --disable=*;
+  when: (ansible_virtualization_role != 'guest') and (ansible_distribution_version|int == 7)
+
+- name: subscribing to extra repos
+  shell: >
+    subscription-manager repos '--disable=*' --enable=rhel-7-server-rpms --enable=rhel-7-server-optional-rpms --enable=rhel-7-server-extras-rpms;
+  when: (distro.rhel.subscription.username is defined and ansible_distribution_version|int == 7)

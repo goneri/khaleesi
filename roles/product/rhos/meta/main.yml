@@ -3,5 +3,6 @@ dependencies:
     - { role: common }
     - { role: common-handlers }
     - { role: product/rhos/common }
+    - { role: linux/rhel/register, when: ansible_distribution == 'RedHat' }
     - { role: product/rhos/rhel, when: ansible_distribution == 'RedHat' }
 
