@@ -1,0 +1,15 @@
+provisioner:
+  images:
+    centos:
+      '7': {id: ecf26fe6-5ff2-4ea8-9d65-db58c18cb57b, name: "CentOS 7 (1510) x86_64",
+        remote_user: centos}
+    fedora:
+      '22': {id: daa13a4a-9e01-4d8e-8c45-4ece112ec3fe, name: Fedora-Cloud-Base-22-20150521.x86_64,
+        remote_user: fedora}
+      '23': {id: 091ff66c-ac23-4e36-b47d-903de3b33e4a, name: Fedora-Cloud-Base-23-20151113-py27.x86_64,
+        remote_user: fedora}
+    rhel:
+      '7.1': {id: 48371509-0c54-4657-8484-002ce8ec38dc, name: "RHEL 7.1 x86_64",
+        remote_user: cloud-user}
+      '7.2': {id: 74fdc57f-8457-4f48-8d35-9cd58b5b3b2d, name: "RHEL 7.2 x86_64",
+        remote_user: cloud-user}

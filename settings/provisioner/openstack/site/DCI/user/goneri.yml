@@ -1,0 +1,8 @@
+--- !extends:../tenant/DCI.yml
+
+provisioner:
+    username: gleboude
+    password: !lookup private.provisioner.DCI.password
+    key_file: !join [ !env HOME , /.ssh/DCI/id_rsa ]
+    key_name: DCI
+
