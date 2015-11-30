@@ -1,0 +1,19 @@
+--- !extends:common/image.yml
+
+provisioner:
+    tenant_name: DCI-Khaleesi
+    network:
+        nic:
+            net_1:
+                name: private
+                id: 3eb56f9c-4401-4b13-81c9-33b2e2643ef7
+            net_2:
+                name: data
+                id: 442f763d-d5dd-4a0d-91bd-9640fe04b1b9
+            net_3:
+                name: external
+                id: fe8365e5-7609-4395-8358-6c07a6d1298d
+        public_subnet_cidr: 172.16.42.0/24
+        public_allocation_start: 172.16.42.200
+        public_allocation_end: 172.16.42.220
+        public_subnet_gateway: 172.16.42.1

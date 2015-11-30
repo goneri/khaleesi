@@ -1,0 +1,28 @@
+provisioner:
+    auth_url: !lookup private.provisioner.DCI.auth_url
+
+    network:
+        name: Floating
+        type: neutron
+        use_floating_ip: Yes
+        network_list:
+            management:
+                name: internal
+                id: 55f3fb5e-b641-4745-8b20-71960c878d8b
+            data:
+                name: data
+                id: 442f763d-d5dd-4a0d-91bd-9640fe04b1b9
+            external:
+                name: external
+                id: fe8365e5-7609-4395-8358-6c07a6d1298d
+    flavor:
+        tiny:  1
+        small: 2
+        medium: 3
+        large: 4
+        hypervisor: f80489cf-d3d5-488b-bfb5-85235f621d85
+    security_groups: ssh,rhos-mirror-user
+
+defaults:
+    tenant: DCI
+    user: goneri
