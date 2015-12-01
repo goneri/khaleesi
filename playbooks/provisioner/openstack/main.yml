@@ -10,7 +10,11 @@
            login_username: "{{ provisioner.username }}"
            login_password: "{{ provisioner.password }}"
            login_tenant_name: "{{ provisioner.tenant_name }}"
-           name: "{{ item.value.name }}"
+           name: "{% if item.value.hostname != None %}
+                      {{ item.value.hostname }}
+                  {% else %}
+                      {{ item.value.name }}
+                  {% endif %}"
            image_id: "{{ item.value.image_id }}"
            key_name: "{{ provisioner.key_name }}"
            flavor_id: "{{ item.value.flavor_id }}"
@@ -41,7 +45,7 @@
       with_items: created_nodes.results
 
 - name: wait for hosts to get reachable
-  hosts: openstack_nodes
+  hosts: all:!localhost
   gather_facts: no
   max_fail_percentage: 0
   tasks:
