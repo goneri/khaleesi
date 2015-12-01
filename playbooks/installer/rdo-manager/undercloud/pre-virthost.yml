@@ -1,4 +1,14 @@
 ---
+- name: Ensure with can use the root user
+  hosts: host0
+  sudo: yes
+  tasks:
+    - name: allow auth with authorized_keys from the root user
+      replace:
+        dest=/root/.ssh/authorized_keys
+        regexp='^no-port-forwarding.*(ssh-rsa .*)$'
+        replace='\1'
+      ignore_errors: yes
 - name: Create the stack user on the virthost
   hosts: virthost
   vars:
@@ -27,6 +37,11 @@
 
     - name: set fact for the stack user home
       set_fact: instack_user_home=/home/{{ provisioner.remote_user }}
+
+    - name: Ensure ansible won't use the image cloud user
+      add_host:
+        name="host0"
+        ansible_ssh_user="{{ provisioner.remote_user }}"
 
 - include: repo-{{ product.name }}.yml repo_host=virthost
 
