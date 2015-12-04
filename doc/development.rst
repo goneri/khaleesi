@@ -178,3 +178,25 @@ to disable (or force enable) specific one::
 
     ksgen ... --extra-vars '{"workarounds": {"rhbz1138740": {"enabled": true}}}'
 
+
+Variables meaning
+^^^^^^^^^^^^^^^^^
+
+- product.full_version:
+  The component to test, can be either `7`, `7-director`, `8`, `8-director`.
+- product.core_product_version:
+  The major version number of the product, e.g: `7` or `8`.
+- product.repo_type:
+  Can be either `puddle` or `poodle`.
+  - puddle: automatic snapshot of the development repositories (core and OSP-d)
+  - poodle: a poodle is a stabilized version of the repository (core only)
+- product.repo.poodle_pin_version:
+  Define a specific version of the poodle. The value can either be `latest` or
+  specify a given version like `2015-12-03.1`. The variable is in use only if
+  `product.repo_type` is `poodle`.
+- product.repo.puddle_pin_version:
+  Like for `product.repo.poodle_pin_version` but for a core puddle. The variable is in use only if
+  `product.repo_type` is `poodle`.
+- product.repo.puddle_director_pin_version:
+  The OSP-d puddle version to test. Default is `latest`. This variable is enable only if
+  `product.repo_type` is `puddle`.
