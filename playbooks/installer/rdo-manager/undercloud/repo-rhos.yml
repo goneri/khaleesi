@@ -106,6 +106,9 @@
 
     - name: update all packages
       yum: name=* state=latest
+      register: job_result
+      until: job_result|success
+      retries: 5
       when: yum_update | bool
 
     - name: Find if a new kernel was installed
