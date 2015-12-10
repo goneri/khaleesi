@@ -18,6 +18,7 @@
            image_id: "{{ item.value.image_id }}"
            key_name: "{{ provisioner.key_name }}"
            flavor_id: "{{ item.value.flavor_id }}"
+           security_groups: "{{ provisioner.security_groups | default('default') }}"
            nics:
               - net-id: "{{ provisioner.network.network_list.management.id }}"
               - net-id: "{{ provisioner.network.network_list.data.id }}"
