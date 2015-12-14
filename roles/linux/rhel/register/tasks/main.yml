@@ -7,17 +7,22 @@
   failed_when: shell_result.rc not in [0, 64]
   when: distro.rhel.subscription.username is defined
 
+- name: attach --auto
+  shell: >
+    subscription-manager attach --auto;
+  when: (distro.rhel.subscription.pool == None) and (distro.rhel.subscription.physical_pool == None)
+
 - name: subscribing to pool
   shell: >
     subscription-manager subscribe --pool {{ distro.rhel.subscription.pool }};
     subscription-manager repos --disable=*;
-  when: ansible_virtualization_role == 'guest' and (distro.rhel.subscription.pool is defined) and (ansible_distribution_version|int == 7)
+  when: (ansible_virtualization_role == 'guest') and (ansible_distribution_version|int == 7)
 
 - name: subscribing to physical_pool
   shell: >
     subscription-manager subscribe --pool {{ distro.rhel.subscription.physical_pool }};
     subscription-manager repos --disable=*;
-  when: (ansible_virtualization_role != 'guest') and (distro.rhel.subscription.physical_pool is defined) and (ansible_distribution_version|int == 7)
+  when: (ansible_virtualization_role != 'guest') and (ansible_distribution_version|int == 7)
 
 - name: subscribing to extra repos
   shell: >
