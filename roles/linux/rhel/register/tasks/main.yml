@@ -27,7 +27,12 @@
 - name: subscribing to extra repos
   shell: >
     subscription-manager repos --disable=*;
-    subscription-manager repos --enable=rhel-7-server-rpms;
-    subscription-manager repos --enable=rhel-7-server-optional-rpms;
-    subscription-manager repos --enable=rhel-7-server-extras-rpms;
+    subscription-manager repos \
+        --enable=rhel-7-server-rpms \
+        --enable=rhel-7-server-optional-rpms \
+        --enable=rhel-7-server-extras-rpms;
   when: (distro.rhel.subscription.physical_pool is defined and ansible_distribution_version|int == 7)
+
+- name: tweak the redhat.repo file to use our local mirrors
+  ini_file: dest=/etc/yum.repos.d/redhat.repo section={{ item.key }} option=baseurl value={{ item.value }}
+  with_dict: "{{ provisioner.service.rhel_channel_mirrors|default({}) }}"
