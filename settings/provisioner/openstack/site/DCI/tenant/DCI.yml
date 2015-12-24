@@ -17,3 +17,8 @@ provisioner:
         public_allocation_start: 172.16.42.200
         public_allocation_end: 172.16.42.220
         public_subnet_gateway: 172.16.42.1
+    service:
+      local_http_cache: 192.168.1.2
+      rhel_channel_mirrors:
+        rhel-7-server-rpms: http://192.168.1.2/released/RHEL-7/7.2/Server/x86_64/os/
+        rhel-7-server-optional-rpms: http://192.168.1.2/released/RHEL-7/7.2/Server-optional/x86_64/os/
